@@ -218,8 +218,8 @@ export function useStreamingHandTracking({
       onFrameTickJS?.();
 
       // Adaptive frame interval logic
-      // ~33 FPS during active use, ~10 FPS when idle
-      const intervalMs = emptyFrames.value > 15 ? 100 : 30;
+      // ~25 FPS during active use, ~8 FPS when idle
+      const intervalMs = emptyFrames.value > 15 ? 120 : 40;
 
       const result = detectHands(frame, {
         minProcessIntervalMs: intervalMs,
