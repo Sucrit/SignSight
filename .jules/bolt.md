@@ -1,3 +1,6 @@
 ## 2026-04-15 - Adaptive Frame Throttle in react-native-vision-camera
 **Learning:** High-frequency MediaPipe landmarker execution in a continuous mobile frame processor can cause severe thermal build-up and battery drain, even when no target object (e.g., hands) is present.
 **Action:** Use `react-native-worklets-core` `useSharedValue` to track consecutive empty frames natively inside the worklet, and dynamically back-off the processing interval when idle to significantly reduce sustained CPU/GPU load without missing the target's re-entry.
+## 2025-04-19 - Reducing Thermal Load and Redundant Re-Renders
+**Learning:** Exact equality checks against existing complex state references (e.g. `current` state in `PredictionViewModel`) dramatically reduce JS bridge churn and component re-renders when receiving identical high-frequency values from native frame processors. Coupled with a slightly lowered frame processor interval when idle vs active, these techniques offer the greatest single-point mitigation for thermal throttling during sustained ML/Camera use.
+**Action:** Always implement exact-reference state updates for properties updated by native/worklet hooks, and tune baseline processing cadence using adaptive logic rather than striving for continuous max FPS.
