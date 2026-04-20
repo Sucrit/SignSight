@@ -227,7 +227,7 @@ export function useStreamingHandTracking({
       });
 
       if (result) {
-        if (result.hasHand || result.hasUpperBody) {
+        if (result.hasHand) {
           emptyFrames.value = 0;
         } else {
           emptyFrames.value = emptyFrames.value + 1;
