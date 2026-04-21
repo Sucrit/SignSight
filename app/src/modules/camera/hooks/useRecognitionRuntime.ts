@@ -58,12 +58,12 @@ export function useRecognitionRuntime({
       setRecordingGestureFramesCount,
       setWordGraceActive,
       setLastConf: (confidence: number) =>
-        setPrediction((current) => ({ ...current, confidence })),
+        setPrediction((current) => current.confidence === confidence ? current : { ...current, confidence }),
       setLastGesturePredictionAtMs,
       setLastLabel: (label: string) =>
-        setPrediction((current) => ({ ...current, label })),
+        setPrediction((current) => current.label === label ? current : { ...current, label }),
       setRawLabel: (rawLabel: string) =>
-      setPrediction((current) => ({ ...current, rawLabel })),
+        setPrediction((current) => current.rawLabel === rawLabel ? current : { ...current, rawLabel }),
     });
   }, [detectMode]);
 
@@ -77,20 +77,20 @@ export function useRecognitionRuntime({
       setRecordingGestureFramesCount,
       setWordGraceActive,
       setLastConf: (confidence: number) =>
-        setPrediction((current) => ({ ...current, confidence })),
+        setPrediction((current) => current.confidence === confidence ? current : { ...current, confidence }),
       setLastGesturePredictionAtMs,
       setLastLabel: (label: string) =>
-        setPrediction((current) => ({ ...current, label })),
+        setPrediction((current) => current.label === label ? current : { ...current, label }),
       setRawLabel: (rawLabel: string) =>
-        setPrediction((current) => ({ ...current, rawLabel })),
+        setPrediction((current) => current.rawLabel === rawLabel ? current : { ...current, rawLabel }),
     });
   }, [enabled]);
 
   useEffect(() => {
-    setPrediction((current) => ({
-      ...current,
-      hasHand: !!latestHandFrame?.hasHand,
-    }));
+    setPrediction((current) => {
+      const hasHand = !!latestHandFrame?.hasHand;
+      return current.hasHand === hasHand ? current : { ...current, hasHand };
+    });
 
     if (!latestHandFrame) return;
 
@@ -105,17 +105,17 @@ export function useRecognitionRuntime({
       setRecordingGestureFramesCount,
       setWordGraceActive,
       setLastConf: (confidence: number) =>
-        setPrediction((current) => ({ ...current, confidence })),
+        setPrediction((current) => current.confidence === confidence ? current : { ...current, confidence }),
       setLastGesturePredictionAtMs,
       setLastHandedness: (handedness: string | null) =>
-        setPrediction((current) => ({
-          ...current,
-          handedness: handedness as PredictionViewModel["handedness"],
-        })),
+        setPrediction((current) => {
+          const newHandedness = handedness as PredictionViewModel["handedness"];
+          return current.handedness === newHandedness ? current : { ...current, handedness: newHandedness };
+        }),
       setLastLabel: (label: string) =>
-        setPrediction((current) => ({ ...current, label })),
+        setPrediction((current) => current.label === label ? current : { ...current, label }),
       setRawLabel: (rawLabel: string) =>
-        setPrediction((current) => ({ ...current, rawLabel })),
+        setPrediction((current) => current.rawLabel === rawLabel ? current : { ...current, rawLabel }),
       smootherRef,
       onPredictionAttempt: () => {},
     });
