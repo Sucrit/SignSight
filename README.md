@@ -9,8 +9,6 @@ It combines:
 - trainable backend model pipelines
 - an in-app developer lab for capture, datasets, and model workflows
 
-## Architecture At A Glance
-
 SignSight has two main runtime surfaces:
 
 - [`app/`](./app)
@@ -20,16 +18,14 @@ SignSight has two main runtime surfaces:
 
 ## Quick Start
 
-### Fast Path (Automated)
-
-From the repository root:
+### Fast Run (App & Backend)
+Exception: Web Client
 
 ```bash
-./init.sh
-./run.sh
+make dev
 ```
 
-### Manual Setup (Recommended)
+### Setup
 
 Install mobile dependencies:
 
@@ -60,6 +56,13 @@ cd app
 npx expo start -c
 ```
 
+Or, from the repository root:
+
+```bash
+make backend
+make app
+```
+
 For Android native tracking changes, use a development build:
 
 ```bash
@@ -67,23 +70,6 @@ cd app
 npx expo run:android
 npx expo start --dev-client
 ```
-
-## Documentation
-
-The main docs hub lives in [docs/README.md](./docs/README.md).
-
-Audience-based entry points:
-
-- [Normal User Guide](./docs/users/getting-started.md)
-- [Open Source Guide](./docs/open-source/README.md)
-- [Scouting Guide](./docs/scouting/README.md)
-- [Enterprise Guide](./docs/enterprise/README.md)
-
-Shared technical references:
-
-- [Architecture Reference](./docs/references/architecture.md)
-- [ML Pipelines Reference](./docs/references/ml-pipelines.md)
-- [Repository Map](./docs/references/repository-map.md)
 
 ## Project Scope
 
@@ -93,11 +79,10 @@ SignSight should be understood as:
 - a dataset collection and review workflow
 - a model iteration platform for static and dynamic sign recognition
 
-It should not be oversold as:
+It should not be oversold yet as:
 
 - full sentence-level sign language translation
 - a general-purpose multimodal language model
-- a complete back-office or administration platform
 
 ## Status
 
