@@ -5,7 +5,6 @@ import {
   Text,
   StyleSheet,
   Pressable,
-  SafeAreaView,
   TextInput,
   Platform,
   ActivityIndicator,
@@ -13,6 +12,7 @@ import {
   ScrollView,
   type DimensionValue,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { API_BASE } from "../config/api";
 import { TYPOGRAPHY } from "../config/typography";

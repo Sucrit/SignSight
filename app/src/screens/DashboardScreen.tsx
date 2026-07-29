@@ -4,13 +4,13 @@ import {
   Text,
   StyleSheet,
   Pressable,
-  SafeAreaView,
   Platform,
   ScrollView,
   useWindowDimensions,
   ImageBackground,
   Image,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { TYPOGRAPHY } from "../config/typography";
 import { SPACING } from "../config/spacing";

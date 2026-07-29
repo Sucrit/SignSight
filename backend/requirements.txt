@@ -11,3 +11,4 @@ pillow
 scikit-learn
 joblib
 python-multipart
+pytest

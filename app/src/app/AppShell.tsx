@@ -47,7 +47,6 @@ export default function AppShell() {
     (async () => {
       if (Platform.OS === "android") {
         try {
-          await NavigationBar.setBackgroundColorAsync("#FFFFFF");
           await NavigationBar.setButtonStyleAsync("dark");
         } catch {}
       }

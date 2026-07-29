@@ -33,6 +33,7 @@
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
       ],
+      "usesCleartextTraffic": true,
       "edgeToEdgeEnabled": true,
       "package": "com.anonymous.app"
     },
@@ -55,7 +56,8 @@
           "enableFrameProcessors": true
         }
       ],
-      "expo-image-picker"
+      "expo-image-picker",
+      "expo-video"
     ]
   }
 }

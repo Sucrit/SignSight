@@ -116,7 +116,7 @@ export default function CameraExperience({
       setModelStatusMessage(null);
     } catch (error) {
       console.log("Failed to fetch translator models", error);
-      setModelStatusMessage("Unable to load models.");
+      setModelStatusMessage(`Unable to reach backend at ${API_BASE}.`);
     }
   }
 
@@ -132,6 +132,7 @@ export default function CameraExperience({
     } catch (error) {
       console.log("Failed to fetch gesture health", error);
       setGestureHealth(null);
+      setModelStatusMessage(`Unable to reach backend at ${API_BASE}.`);
     }
   }
 
