@@ -64,7 +64,7 @@ Owns:
 - SVM training.
 - Model version registry.
 - Prediction acceptance thresholds.
-- Rule-based overrides for confusion families.
+- Model confidence and acceptance policy.
 
 Be careful changing:
 

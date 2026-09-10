@@ -1315,10 +1315,8 @@ def predict_landmarks(
         if len(top_scores) > 1
         else float(top_scores[0])
     )
-    analysis = analyze_hand_landmarks(landmarks, handedness)
-    label, confidence = _maybe_apply_rule_override(
-        raw_label, raw_confidence, top_labels, top_scores, analysis
-    )
+    label = raw_label
+    confidence = raw_confidence
     active_static_letters = _active_static_letters()
     active_static_word_labels = _active_static_word_labels()
     if _clean_optional_string(label_space) == "words":
@@ -1334,22 +1332,6 @@ def predict_landmarks(
                 "active_static_word_labels": active_static_word_labels,
                 "unknown_reason": None,
             }
-
-    static_word_label = _suggest_static_word_label(analysis, label_space)
-    if static_word_label:
-        label = static_word_label
-        confidence = max(confidence, _static_word_confidence_floor(static_word_label) or confidence)
-        return {
-            "label": label,
-            "confidence": confidence,
-            "accepted_prediction": True,
-            "raw_label": raw_label,
-            "raw_confidence": raw_confidence,
-            "margin": margin,
-            "active_static_letters": active_static_letters,
-            "active_static_word_labels": active_static_word_labels,
-            "unknown_reason": None,
-        }
 
     accepted_prediction, unknown_reason = _evaluate_prediction_acceptance(
         confidence=confidence,

@@ -21,9 +21,8 @@ from sklearn.svm import SVC
 
 from app.core.constants import LABELS
 from app.core.paths import MODELS_DIR
-from app.ml.landmarks import analyze_hand_landmarks, landmark_feature_vector
+from app.ml.landmarks import landmark_feature_vector
 from app.services.landmark_classifier import (
-    _maybe_apply_rule_override,
     _top_predictions,
     load_approved_landmark_records,
 )
@@ -231,8 +230,6 @@ def _top_predictions_generic(model, vec: np.ndarray) -> tuple[np.ndarray, np.nda
 
 def _evaluate_predictions(model, Xte: np.ndarray, rows: list[dict]) -> dict[str, Any]:
     raw_preds: list[str] = []
-    adjusted_preds: list[str] = []
-    adjusted_confidences: list[float] = []
     y_true = [row["label"] for row in rows]
 
     for vec, row in zip(Xte, rows, strict=False):
@@ -243,19 +240,7 @@ def _evaluate_predictions(model, Xte: np.ndarray, rows: list[dict]) -> dict[str,
             top_labels, top_scores = _top_predictions_generic(model, vec_2d)
 
         raw_label = str(top_labels[0])
-        raw_conf = float(top_scores[0])
         raw_preds.append(raw_label)
-
-        analysis = analyze_hand_landmarks(row["landmarks"], row.get("handedness"))
-        adjusted_label, adjusted_conf = _maybe_apply_rule_override(
-            raw_label,
-            raw_conf,
-            top_labels,
-            top_scores,
-            analysis,
-        )
-        adjusted_preds.append(adjusted_label)
-        adjusted_confidences.append(float(adjusted_conf))
 
     raw_report = classification_report(
         y_true,
@@ -264,14 +249,6 @@ def _evaluate_predictions(model, Xte: np.ndarray, rows: list[dict]) -> dict[str,
         zero_division=0,
         output_dict=True,
     )
-    adjusted_report = classification_report(
-        y_true,
-        adjusted_preds,
-        labels=LABELS,
-        zero_division=0,
-        output_dict=True,
-    )
-
     def pack_metrics(preds: list[str], report: dict[str, Any]) -> dict[str, Any]:
         return {
             "accuracy": float(accuracy_score(y_true, preds)),
@@ -294,12 +271,6 @@ def _evaluate_predictions(model, Xte: np.ndarray, rows: list[dict]) -> dict[str,
 
     return {
         "raw": pack_metrics(raw_preds, raw_report),
-        "adjusted": pack_metrics(adjusted_preds, adjusted_report),
-        "adjusted_confidence_summary": {
-            "mean": float(np.mean(adjusted_confidences)) if adjusted_confidences else 0.0,
-            "min": float(np.min(adjusted_confidences)) if adjusted_confidences else 0.0,
-            "max": float(np.max(adjusted_confidences)) if adjusted_confidences else 0.0,
-        },
     }
 
 

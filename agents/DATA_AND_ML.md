@@ -172,19 +172,10 @@ backend/models/asl_landmarks_model_meta.json
 
 Do not manually edit these unless the task is about model operations.
 
-## Rule-Based Overrides
+## Classification Behavior
 
-`landmark_classifier.py` includes rule-based corrections for known confusion families such as:
-
-- `I` / `Y`
-- `U` / `V` / `W`
-- `R` / `U`
-- `C` / `O` / `F`
-- `A` / `S`
-- `E` / `S` / `T`
-- `M` / `N` / `T` / `S`
-
-These rules are part of production behavior. Changing them affects prediction labels and confidence.
+Landmark prediction uses the active trained model's output directly. There are no
+ASL-specific hand-shape overrides or confidence floors layered on top of the model.
 
 ## Dataset Agent Rules
 
