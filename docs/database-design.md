@@ -13,6 +13,10 @@ The backend is configured to use the `signsight` database by default (`MONGO_DB`
 
 This is the collection count defined by the application code. MongoDB creates collections when they are first written to; the live Atlas project may show a different count if other collections were created manually or by older versions.
 
+## Database design discussion
+
+SignSight uses two MongoDB collections—`feedback` and `audit`—where each document serves a role similar to a row in a relational table. The `feedback` collection stores user submissions and their resolution state, while `audit` records administrative activity; there is no enforced foreign key between them, and a resolution event keeps the feedback ID as text in the audit details. Training samples remain in JSONL files rather than MongoDB, so the database is focused on feedback and admin records.
+
 ## Entity relationship diagram
 
 ```mermaid
