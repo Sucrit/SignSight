@@ -10,6 +10,7 @@ This documentation describes the current project architecture, local development
 - [Local Setup and Development](./local-development.md)
 - [System Architecture](./architecture.md)
 - [Backend Service](./backend.md)
+- [Database Design](./database-design.md)
 - [API Reference](./api-reference.md)
 - [Mobile App](./mobile-app.md)
 - [Data and Model Workflow](./data-and-model-workflow.md)
